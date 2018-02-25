@@ -135,13 +135,13 @@ $ ssh root@localhost -p 2222
 
 ## Game Page
 
-The game page can be reached at [http://<IP>:8888/tetris](http://localhost:8888/).
+The game page can be reached at [http://localhost:8888/tetris](http://localhost:8888/).
 
 This page is also hosted at [GitHub](https://ytiurin.github.io/tetris/).
 
 ## Server Logs
 
-The server logs of a running Tetris container can be checked online at [http://<IP>:8888/log](http://localhost:8888/log).
+The server logs of a running Tetris container can be checked online at [http://localhost:8888/log](http://localhost:8888/log).
 
 ## Favicon
 

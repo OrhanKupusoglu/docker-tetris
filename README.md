@@ -48,7 +48,7 @@ ad3029cb89a0        tetris-server/app:0.0.1   "sh -c /${DIR_PROJEC…"   3 minut
 ```
 ## Docker Compose
 
-Docker Compose uses [YAML](https://en.wikipedia.org/wiki/YAML) to define and run containers.
+[Docker Compose](https://docs.docker.com/compose/install/) uses [YAML](https://en.wikipedia.org/wiki/YAML) to define and run containers.
 
 Without Docker Compose lengthy **docker build** and **docker run** commands must be issued. Another improvement is using arguments in the Dockerfile scripts. The important [FROM](https://docs.docker.com/engine/reference/builder/#from) instruction can contain references to arguments. See the scripts in the [docker/](./docker) directory.
 

@@ -91,9 +91,57 @@ $ docker-compose down
 $ docker-compose rm
 ```
 
+## SSH
+
+The container can be accessed via SSH on port **2222** by the **root** user with password **1234**.
+
+```
+$ ssh root@localhost -p 2222
+The authenticity of host '[localhost]:2222 ([127.0.0.1]:2222)' can't be established.
+ECDSA key fingerprint is SHA256:8K4ng5UStyO1YNVByJjm93aYU5RSdD0C5CTpC3lKzC0.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '[localhost]:2222' (ECDSA) to the list of known hosts.
+root@localhost's password:
+Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.10.0-38-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+root@app:~# cd /GAME/
+root@app:/GAME# ls -1
+requirements.txt
+settings.cfg
+start.sh
+stop.sh
+tetris-server
+tetris-server.tar.gz
+```
+
+Each new built image may trigger a warning. This warning can be eliminated with the suggested **ssh-keygen -f** command.
+```
+$ ssh root@localhost -p 2222
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+```
+
+## Game Page
+
+The game page can be reached at [/tetris](http://localhost:8888/).
+
+This page is also hosted at [GitHub](https://ytiurin.github.io/tetris/).
+
 ## Server Logs
 
-The server logs of a running Tetris container can be checked online at [/log](localhost:8888/log).
+The server logs of a running Tetris container can be checked online at [/log](http://localhost:8888/log).
 
 ## Favicon
 

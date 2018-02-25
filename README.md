@@ -1,6 +1,6 @@
 # Docker-Tetris
 
-This project's aim is to combine [Docker](https://www.docker.com/) and a Web application by [Docker Compose](https://docs.docker.com/compose/). The selected Web applicatication is a beautifully crafted JavaScript game by [ytiurin](https://github.com/ytiurin). The [game](https://github.com/ytiurin/tetris) is a faithful simuation of the original Tetris of 1984.
+This project's aim is to combine [Docker](https://www.docker.com/) and a Web application by [Docker Compose](https://docs.docker.com/compose/). The selected Web applicatication is a beautifully crafted JavaScript game by [ytiurin](https://github.com/ytiurin). The [game](https://github.com/ytiurin/tetris) is a faithful simulation of the original Tetris of 1984.
 
 Although to host this game consisting of only static pages [Flask](http://flask.pocoo.org/) is an overkill, the main idea of using Docker containers might be useful for a real Flask application.
 

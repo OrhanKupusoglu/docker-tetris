@@ -1,0 +1,18 @@
+ARG arg_base_tag
+
+FROM "tetris-server/base:${arg_base_tag}"
+
+WORKDIR /$DIR_PROJECT
+
+COPY tetris-server.tar.gz /$DIR_PROJECT
+
+RUN tar -xzf tetris-server.tar.gz && \
+    virtualenv -p /usr/bin/python3 .venv && \
+    /bin/bash -c "source .venv/bin/activate; pip install -r requirements.txt; deactivate" && \
+    cd tetris-server/static/ && \
+    git clone https://github.com/ytiurin/tetris.git
+
+# SSH | APP
+EXPOSE 22 "${X_SERVER_PORT}"
+
+CMD ["sh", "-c", "/${DIR_PROJECT}/start.sh"]

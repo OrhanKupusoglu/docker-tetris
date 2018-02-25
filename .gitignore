@@ -1,0 +1,4 @@
+tetris-server/static/tetris
+.venv/
+__pycache__/
+*.tar.gz

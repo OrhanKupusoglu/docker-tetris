@@ -1,0 +1,63 @@
+FROM ubuntu:16.04
+
+ARG arg_ssh_user_pwd=root:5678
+ARG arg_time_zone=Europe/Istanbul
+ARG arg_ntp_server_0=0.tr.pool.ntp.org
+ARG arg_ntp_server_1=1.tr.pool.ntp.org
+ARG arg_dir_project=project
+
+ENV DIR_PROJECT "$arg_dir_project"
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update && \
+    apt-get install -y net-tools && \
+    apt-get install -y iputils-ping && \
+    apt-get install -y build-essential && \
+    apt-get install -y python3 && \
+    apt-get install -y software-properties-common && \
+    apt-get install -y unzip && \
+    apt-get install -y curl && \
+    apt-get install -y wget && \
+    apt-get install -y vim && \
+    apt-get install -y nano && \
+    apt-get install -y openssh-server && \
+    apt-get install -y ruby && \
+    apt-get install -y ntp && \
+    apt-get install -y git && \
+    apt-get install -y tzdata && \
+    apt-get autoremove && \
+    apt-get clean
+
+ENV DEBIAN_FRONTEND teletype
+
+RUN echo "" >> ~/.bashrc && \
+    echo "export LC_ALL=C.UTF-8" >> ~/.bashrc && \
+    echo "export LANG=C.UTF-8" >> ~/.bashrc && \
+    echo "export LANGUAGE=C.UTF-8" >> ~/.bashrc
+
+ENV LC_ALL C.UTF-8
+ENV LANG C.UTF-8
+ENV LANGUAGE C.UTF-8
+
+RUN mkdir /var/run/sshd && \
+    echo "$arg_ssh_user_pwd" | chpasswd && \
+    sed -i 's/PermitRootLogin/#PermitRootLogin/' /etc/ssh/sshd_config && \
+    echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
+
+RUN mv /etc/ntp.conf /etc/ntp.conf.orig && \
+    echo "$arg_ntp_server_0" > /etc/ntp.conf && \
+    echo "$arg_ntp_server_1" >> /etc/ntp.conf
+
+ENV TZ ":$arg_time_zone"
+RUN rm -r /var/cache/debconf && mkdir /var/cache/debconf && \
+    echo "$arg_time_zone" > /etc/timezone && \
+    rm -f /etc/localtime && \
+    ln -snf "/usr/share/zoneinfo/$arg_time_zone" /etc/localtime
+
+WORKDIR /$DIR_PROJECT
+
+RUN wget https://bootstrap.pypa.io/get-pip.py && \
+    python3 get-pip.py && \
+    rm -f get-pip.py && \
+    pip install virtualenv

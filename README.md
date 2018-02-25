@@ -56,7 +56,7 @@ The [.env](./docker/.venv) file contains variables, all starting with **X_**, wh
 
 ### Docker Compose Commands
 
-The application can be built and run with a simple shell script, [docker.sh](./docker/docker.sh), which creates a [tarball](https://en.wikipedia.org/wiki/Tarball_(computing)) from the Flask web application. This tarball is refered to in the [Dockerfile-App](./docker/Dockerfile-App) script.
+The application can be built and run with a simple shell script, [docker.sh](./docker/docker.sh), which creates a [tarball](https://en.wikipedia.org/wiki/Tarball_(computing)) from the Flask web application. This tarball is referred to in the [Dockerfile-App](./docker/Dockerfile-App) script.
 
 ```
 $ cd docker

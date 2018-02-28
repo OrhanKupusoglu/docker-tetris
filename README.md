@@ -61,11 +61,28 @@ The application can be built and run with a simple shell script, [docker.sh](./d
 ```
 $ cd docker
 $ ./docker.sh
+. . .
+Creating docker_base_1 ... done
+Creating app ... done
+Creating app ...
+Attaching to app
+app     | --- started
 ```
 
-After running the Docker Compose scripts, three images are listed. The **ubuntu:16:04** is the where **tetris-server/base:0.0.1** is derived from, and in turn the **tetris-server/app:0.0.1** image is derived from this base image. The **tetris-server/base:0.0.1** is prepared with Python 3 projects in mind and can be reached with SSH. Therefore this image might be useful for other Python 3 images, this means that build durations and storage requierements will be less than using directly a Linux distribution.
+After running the Docker Compose scripts, three images are added. These images can be checked in a new terminal.
+
+The **ubuntu:16:04** is the where **tetris-server/base:0.0.1** is derived from, and in turn the **tetris-server/app:0.0.1** image is derived from this base image. The **tetris-server/base:0.0.1** is prepared with Python 3 projects in mind and can be reached with SSH. Therefore this image might be useful for other Python 3 images, this means that build durations and storage requierements will be less than using directly a Linux distribution.
 
 ```
+$ cd docker
+$ docker image ls
+REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
+tetris-server/app    0.0.1               30814825f371        3 days ago          591MB
+tetris-server/base   0.0.1               c072bf4c7b56        3 days ago          570MB
+ubuntu               16.04               0458a4468cbc        4 weeks ago         112MB
+
+$ docker container ls
+
 $ docker-compose help
 
 $ docker-compose ps
@@ -75,7 +92,48 @@ app             sh -c /${DIR_PROJECT}/start.sh   Up       0.0.0.0:2222->22/tcp, 
 docker_base_1   /bin/bash                        Exit 0
 ```
 
-Docker Compose may give errors related to its cache. When this is the case, it is best to remove all project containers (-f for force) and images and rebuild everything.
+The running containers can be stopped with CTRL+C.
+
+```
+app     | --- started
+^CGracefully stopping... (press Ctrl+C again to force)
+Stopping app ...
+Killing app ... done
+```
+
+### Docker Compose Detached Mode
+
+Docker Compose has a **detached mode**:
+
+>  -d Detached mode: Run containers in the background
+>
+
+This is useful to run containers as services.
+
+```
+$ docker-compose up -d
+Creating docker_base_1 ... done
+Creating app ... done
+Creating app ...
+
+$ docker-compose ps
+    Name                   Command               State                       Ports
+------------------------------------------------------------------------------------------------------
+app             sh -c /${DIR_PROJECT}/start.sh   Up       0.0.0.0:2222->22/tcp, 0.0.0.0:8888->8888/tcp
+docker_base_1   /bin/bash                        Exit 0
+
+$ docker-compose down
+Stopping app ... done
+Removing app           ... done
+Removing docker_base_1 ... done
+Removing network docker_default
+
+```
+
+### Docker Compose Errors
+
+During development of new images with frequent ups and downs, Docker Compose may give errors related to its cache. When this is the case, it is best to remove all project containers (-f for force) and images and rebuild everything.
+
 ```
 $ docker-compose up
 . . .

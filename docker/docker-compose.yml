@@ -7,8 +7,8 @@ services:
       args:
         arg_ssh_user_pwd: 'root:1234'
         arg_time_zone: 'America/Los_Angeles'
-        arg_ntp_server_0: 'server 0.us.pool.ntp.org'
-        arg_ntp_server_1: 'server 1.us.pool.ntp.org'
+        arg_ntp_server_0: '0.us.pool.ntp.org'
+        arg_ntp_server_1: '1.us.pool.ntp.org'
         arg_dir_project: 'GAME'
     image: "tetris-server/base:${X_BASE_TAG}"
   app:

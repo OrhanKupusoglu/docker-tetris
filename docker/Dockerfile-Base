@@ -46,8 +46,8 @@ RUN mkdir /var/run/sshd && \
     echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 
 RUN mv /etc/ntp.conf /etc/ntp.conf.orig && \
-    echo "$arg_ntp_server_0" > /etc/ntp.conf && \
-    echo "$arg_ntp_server_1" >> /etc/ntp.conf
+    echo "server $arg_ntp_server_0" > /etc/ntp.conf && \
+    echo "server $arg_ntp_server_1" >> /etc/ntp.conf
 
 ENV TZ ":$arg_time_zone"
 RUN rm -r /var/cache/debconf && mkdir /var/cache/debconf && \

@@ -187,6 +187,8 @@ $ ssh root@localhost -p 2222
 . . .
 
 $ ssh-keygen -f "/home/user/.ssh/known_hosts" -R [localhost]:2222
+
+$ ssh root@localhost -p 2222
 ```
 
 ## Game Page

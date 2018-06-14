@@ -27,6 +27,6 @@ RUN apt-get autoremove && \
     rm -rf /usr/lib/ruby/gems/*/cache/*.gem
 
 # SSH | APP
-EXPOSE 22 "${FLASK_HTTP_PORT}"
+EXPOSE 22 ${FLASK_HTTP_PORT}
 
 CMD ["sh", "-c", "/${DIR_PROJECT}/start.sh"]

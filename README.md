@@ -141,7 +141,7 @@ tetris-server/app    0.0.4               cb668c9231a8        5 minutes ago      
 tetris-server/base   0.0.4               ed7a1621b1fb        6 minutes ago       573MB
 ubuntu               16.04               5e8b97a2a082        9 days ago          114MB
 
-$ docker image rm cb668c9231a8 ed7a1621b1fb6
+$ docker image rm cb668c9231a8 ed7a1621b1fb6 5e8b97a2a082
 ```
 
 ## SSH

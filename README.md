@@ -85,7 +85,7 @@ docker_base_1   /bin/bash                        Exit 0
 The running containers can be stopped with CTRL+C.
 
 ```
-app     | --- started
+app     | -- started
 ^CGracefully stopping... (press Ctrl+C again to force)
 Stopping app ...
 Killing app ... done

@@ -28,8 +28,8 @@ $ man docker-image-rm
 
 $ docker image ls
 REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
-tetris-server/app    0.0.4               e1f5170fec31        4 minutes ago       595MB
-tetris-server/base   0.0.4               a59e37b938bb        4 minutes ago       573MB
+tetris-server/app    0.0.4               cb668c9231a8        5 minutes ago       595MB
+tetris-server/base   0.0.4               ed7a1621b1fb        6 minutes ago       573MB
 ubuntu               16.04               5e8b97a2a082        9 days ago          114MB
 ```
 
@@ -61,8 +61,9 @@ The application can be built and run with a simple shell script, [docker.sh](./d
 $ cd docker
 $ ./docker.sh
 . . .
-Starting docker_base_1 ... done
-Starting app ... done
+WARNING: Image for service app was built because it did not already exist. To rebuild this image you must use `dockerCreating docker_base_1 ... done
+Creating app ... done
+Creating app ... 
 Attaching to app
 app     | -- Flask HTTP port: 8888
 app     | -- started
@@ -70,7 +71,7 @@ app     | -- started
 
 After running the Docker Compose scripts, three images are added. These images can be checked in a new terminal.
 
-The **ubuntu:16:04** is the where **tetris-server/base:0.0.1** is derived from, and in turn the **tetris-server/app:0.0.1** image is derived from this base image. The **tetris-server/base:0.0.1** is prepared with Python 3 projects in mind and can be reached with SSH. Therefore this image might be useful for other Python 3 images, this means that build durations and storage requierements will be less than using directly a Linux distribution.
+The **ubuntu:16:04** is the where **tetris-server/base** is derived from, and in turn the **tetris-server/app** image is derived from this base image. The **tetris-server/base** is prepared with Python 3 projects in mind and can be reached with SSH. Therefore this image might be useful for other Python 3 images, this means that build durations and storage requierements will be less than using directly a Linux distribution.
 
 ```
 $ docker-compose help
@@ -85,9 +86,10 @@ docker_base_1   /bin/bash                        Exit 0
 The running containers can be stopped with CTRL+C.
 
 ```
+app     | -- Flask HTTP port: 8888
 app     | -- started
 ^CGracefully stopping... (press Ctrl+C again to force)
-Stopping app ...
+Stopping app ... 
 Killing app ... done
 ```
 
@@ -96,7 +98,6 @@ Killing app ... done
 Docker Compose has a **detached mode**:
 
 >  -d Detached mode: Run containers in the background
->
 
 This is useful to run containers as services.
 
@@ -127,14 +128,20 @@ $ docker-compose up
 . . .
 ERROR: Error: image <IMAGE_NAME/TAG> not found
 
-$ docker container ls
-$ docker container rm -f ad3029cb89a0
+$ docker ps -a
+CONTAINER ID        IMAGE                      COMMAND                  CREATED             STATUS                       PORTS               NAMES
+fd026181e316        tetris-server/app:0.0.4    "sh -c /${DIR_PROJEC…"   6 minutes ago       Exited (137) 2 minutes ago                       app
+a26e225ff9f5        tetris-server/base:0.0.4   "/bin/bash"              6 minutes ago       Exited (0) 6 minutes ago                         docker_base_1
+
+$ docker container rm -f fd026181e316 a26e225ff9f5
 
 $ docker image ls
-$ docker image rm 5d8d8c3b6bdc c072bf4c7b56
+REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
+tetris-server/app    0.0.4               cb668c9231a8        5 minutes ago       595MB
+tetris-server/base   0.0.4               ed7a1621b1fb        6 minutes ago       573MB
+ubuntu               16.04               5e8b97a2a082        9 days ago          114MB
 
-$ docker-compose down
-$ docker-compose rm
+$ docker image rm cb668c9231a8 ed7a1621b1fb6
 ```
 
 ## SSH

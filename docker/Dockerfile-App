@@ -12,6 +12,15 @@ RUN tar -xzf tetris-server.tar.gz && \
     cd tetris-server/static/ && \
     git clone https://github.com/ytiurin/tetris.git
 
+# clean
+RUN apt-get autoremove && \
+    apt-get clean && \
+    rm -rf /var/cache/apt/* && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /tmp/*  && \
+    rm -rf /var/tmp/* && \
+    rm -rf /usr/lib/ruby/gems/*/cache/*.gem
+
 # SSH | APP
 EXPOSE 22 "${X_SERVER_PORT}"
 

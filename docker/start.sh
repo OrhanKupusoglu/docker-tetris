@@ -16,9 +16,10 @@ fi
 
 export FLASK_APP=tetris-server/app.py
 
-source .venv/bin/activate; nohup flask run --host=0.0.0.0 --port=${X_SERVER_PORT} > /dev/null 2>&1 &
+source .venv/bin/activate; nohup flask run --host=0.0.0.0 --port=${FLASK_HTTP_PORT} > /dev/null 2>&1 &
 
-echo "--- started"
+echo "-- Flask HTTP port: ${FLASK_HTTP_PORT}"
+echo "-- started"
 
 sleep 1
 

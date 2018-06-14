@@ -19,9 +19,10 @@ services:
       dockerfile: 'Dockerfile-App'
       args:
         arg_base_tag: "${X_BASE_TAG}"
+        arg_flask_http_port: "${X_FLASK_PORT}"
     image: "tetris-server/app:${X_APP_TAG}"
     container_name: 'app'
     hostname: 'app'
     ports:
      - '2222:22'
-     - "8888:${X_SERVER_PORT}"
+     - "8888:${X_FLASK_PORT}"

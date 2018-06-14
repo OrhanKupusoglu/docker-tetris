@@ -2,6 +2,11 @@ ARG arg_base_tag
 
 FROM "tetris-server/base:${arg_base_tag}"
 
+# defaults
+ARG arg_flask_http_port=8888
+
+ENV FLASK_HTTP_PORT "$arg_flask_http_port"
+
 WORKDIR /$DIR_PROJECT
 
 COPY tetris-server.tar.gz /$DIR_PROJECT
@@ -22,6 +27,6 @@ RUN apt-get autoremove && \
     rm -rf /usr/lib/ruby/gems/*/cache/*.gem
 
 # SSH | APP
-EXPOSE 22 "${X_SERVER_PORT}"
+EXPOSE 22 "${FLASK_HTTP_PORT}"
 
 CMD ["sh", "-c", "/${DIR_PROJECT}/start.sh"]

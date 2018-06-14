@@ -28,9 +28,9 @@ $ man docker-image-rm
 
 $ docker image ls
 REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
-tetris-server/app    0.0.1               5d8d8c3b6bdc        40 seconds ago      591MB
-tetris-server/base   0.0.1               c072bf4c7b56        50 seconds ago      570MB
-ubuntu               16.04               0458a4468cbc        4 weeks ago         112MB
+tetris-server/app    0.0.4               e1f5170fec31        4 minutes ago       595MB
+tetris-server/base   0.0.4               a59e37b938bb        4 minutes ago       573MB
+ubuntu               16.04               5e8b97a2a082        9 days ago          114MB
 ```
 
 Docker containers can be listed and removed with **docker container** family commands.
@@ -43,8 +43,7 @@ $ man docker-container-rm
 
 $ docker container ls
 CONTAINER ID        IMAGE                     COMMAND                  CREATED             STATUS              PORTS                                          NAMES
-ad3029cb89a0        tetris-server/app:0.0.1   "sh -c /${DIR_PROJEC…"   3 minutes ago       Up 3 minutes        0.0.0.0:8888->8888/tcp, 0.0.0.0:2222->22/tcp   app
-
+c4b36c12fa89        tetris-server/app:0.0.4   "sh -c /${DIR_PROJEC…"   8 minutes ago       Up 8 seconds        0.0.0.0:8888->8888/tcp, 0.0.0.0:2222->22/tcp   app
 ```
 ## Docker Compose
 
@@ -62,11 +61,11 @@ The application can be built and run with a simple shell script, [docker.sh](./d
 $ cd docker
 $ ./docker.sh
 . . .
-Creating docker_base_1 ... done
-Creating app ... done
-Creating app ...
+Starting docker_base_1 ... done
+Starting app ... done
 Attaching to app
-app     | --- started
+app     | -- Flask HTTP port: 8888
+app     | -- started
 ```
 
 After running the Docker Compose scripts, three images are added. These images can be checked in a new terminal.
@@ -74,22 +73,13 @@ After running the Docker Compose scripts, three images are added. These images c
 The **ubuntu:16:04** is the where **tetris-server/base:0.0.1** is derived from, and in turn the **tetris-server/app:0.0.1** image is derived from this base image. The **tetris-server/base:0.0.1** is prepared with Python 3 projects in mind and can be reached with SSH. Therefore this image might be useful for other Python 3 images, this means that build durations and storage requierements will be less than using directly a Linux distribution.
 
 ```
-$ cd docker
-$ docker image ls
-REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
-tetris-server/app    0.0.1               30814825f371        3 days ago          591MB
-tetris-server/base   0.0.1               c072bf4c7b56        3 days ago          570MB
-ubuntu               16.04               0458a4468cbc        4 weeks ago         112MB
-
-$ docker container ls
-
 $ docker-compose help
 
 $ docker-compose ps
-    Name                   Command               State                       Ports
+    Name                   Command               State                       Ports                    
 ------------------------------------------------------------------------------------------------------
 app             sh -c /${DIR_PROJECT}/start.sh   Up       0.0.0.0:2222->22/tcp, 0.0.0.0:8888->8888/tcp
-docker_base_1   /bin/bash                        Exit 0
+docker_base_1   /bin/bash                        Exit 0        
 ```
 
 The running containers can be stopped with CTRL+C.
@@ -114,20 +104,18 @@ This is useful to run containers as services.
 $ docker-compose up -d
 Creating docker_base_1 ... done
 Creating app ... done
-Creating app ...
+Creating app ... 
 
 $ docker-compose ps
-    Name                   Command               State                       Ports
+    Name                   Command               State                       Ports                    
 ------------------------------------------------------------------------------------------------------
 app             sh -c /${DIR_PROJECT}/start.sh   Up       0.0.0.0:2222->22/tcp, 0.0.0.0:8888->8888/tcp
-docker_base_1   /bin/bash                        Exit 0
+docker_base_1   /bin/bash                        Exit 0    
 
 $ docker-compose down
-Stopping app ... done
 Removing app           ... done
 Removing docker_base_1 ... done
 Removing network docker_default
-
 ```
 
 ### Docker Compose Errors
@@ -156,11 +144,11 @@ The container can be accessed via SSH on port **2222** by the **root** user with
 ```
 $ ssh root@localhost -p 2222
 The authenticity of host '[localhost]:2222 ([127.0.0.1]:2222)' can't be established.
-ECDSA key fingerprint is SHA256:8K4ng5UStyO1YNVByJjm93aYU5RSdD0C5CTpC3lKzC0.
+ECDSA key fingerprint is SHA256:xG0j6tW7p7A3VwlmEMjMnoC0q12Li0XybIX9/cUre2g.
 Are you sure you want to continue connecting (yes/no)? yes
 Warning: Permanently added '[localhost]:2222' (ECDSA) to the list of known hosts.
-root@localhost's password:
-Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.10.0-38-generic x86_64)
+root@localhost's password: 
+Welcome to Ubuntu 16.04.4 LTS (GNU/Linux 4.10.0-38-generic x86_64)
 
  * Documentation:  https://help.ubuntu.com
  * Management:     https://landscape.canonical.com

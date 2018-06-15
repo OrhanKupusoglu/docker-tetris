@@ -10,7 +10,6 @@ Docker is a [containerization](https://docs.docker.com/get-started/) tool. The f
 
 ```
 $ sudo groupadd docker
-
 $ sudo usermod -aG docker $USER
 ```
 Logout-login is required.

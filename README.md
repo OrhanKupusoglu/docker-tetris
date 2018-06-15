@@ -184,7 +184,18 @@ $ ssh root@localhost -p 2222
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-. . .
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ECDSA key sent by the remote host is
+SHA256:H/lsgpyZSReSu7krJGKvHAwJA3W83cldDrebk6OTav4.
+Please contact your system administrator.
+Add correct host key in /home/user/.ssh/known_hosts to get rid of this message.
+Offending ECDSA key in /home/user/.ssh/known_hosts:2
+  remove with:
+  ssh-keygen -f "/home/user/.ssh/known_hosts" -R [localhost]:2222
+ECDSA host key for [localhost]:2222 has changed and you have requested strict checking.
+Host key verification failed.
 
 $ ssh-keygen -f "/home/user/.ssh/known_hosts" -R [localhost]:2222
 

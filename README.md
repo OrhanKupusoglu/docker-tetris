@@ -4,6 +4,8 @@ This project's aim is to combine [Docker](https://www.docker.com/) and a Web app
 
 Although to host this game consisting of only static pages [Flask](http://flask.pocoo.org/) is an overkill, the main idea of using Docker containers might be useful for a real Flask application.
 
+&nbsp;
+
 ## Docker
 
 Docker is a [containerization](https://docs.docker.com/get-started/) tool. The free [Community Edition](https://www.docker.com/community-edition) is easy to [install](https://docs.docker.com/install/). The optional [post-installation steps](https://docs.docker.com/install/linux/linux-postinstall/) enable running Docker commands without root privileges.
@@ -45,6 +47,8 @@ $ docker container ls
 CONTAINER ID        IMAGE                     COMMAND                  CREATED             STATUS              PORTS                                          NAMES
 ec3939e3c083        tetris-server/app:0.0.5   "sh -c /${DIR_PROJEC…"   11 minutes ago      Up 11 minutes       0.0.0.0:8888->8888/tcp, 0.0.0.0:2222->22/tcp   app
 ```
+&nbsp;
+
 ## Docker Compose
 
 [Docker Compose](https://docs.docker.com/compose/install/) uses [YAML](https://en.wikipedia.org/wiki/YAML) to define and run containers.
@@ -143,6 +147,7 @@ ubuntu               16.04               5e8b97a2a082        10 days ago        
 
 $ docker image rm 5e8a2fc06b2c d2e0fbcc64b8 5e8b97a2a082
 ```
+&nbsp;
 
 ## SSH
 
@@ -151,7 +156,7 @@ The container can be accessed via SSH on port **2222** by the **root** user with
 ```
 $ ssh root@localhost -p 2222
 The authenticity of host '[localhost]:2222 ([127.0.0.1]:2222)' can't be established.
-ECDSA key fingerprint is SHA256:/3EugfEczFa/DHFaUKnLXiBIG/AgYvpzJg1spofJb9c.
+ECDSA key fingerprint is SHA256:m7YdkesND8QU+NV3oxdvDFqCLCvld6aG58egNVJkGK4.
 Are you sure you want to continue connecting (yes/no)? yes
 Warning: Permanently added '[localhost]:2222' (ECDSA) to the list of known hosts.
 root@localhost's password: 
@@ -169,12 +174,12 @@ Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
 applicable law.
 
 root@app:~# cd /GAME/
-root@app:/GAME# ls -1
+root@app:/GAME# ls -1F
 requirements.txt
 settings.cfg
-start.sh
-stop.sh
-tetris-server
+start.sh*
+stop.sh*
+tetris-server/
 ```
 
 Each new built image may trigger a warning. This warning can be eliminated with the suggested **ssh-keygen -f** command.
@@ -201,15 +206,21 @@ $ ssh-keygen -f "/home/user/.ssh/known_hosts" -R [localhost]:2222
 $ ssh root@localhost -p 2222
 ```
 
+&nbsp;
+
 ## Game Page
 
 The game page can be reached at [http://localhost:8888/tetris](http://localhost:8888/).
 
 This page is also hosted at [GitHub](https://ytiurin.github.io/tetris/).
 
+&nbsp;
+
 ## Server Logs
 
 The server logs of a running Tetris container can be checked online at [http://localhost:8888/log](http://localhost:8888/log).
+
+&nbsp;
 
 ## Favicon
 

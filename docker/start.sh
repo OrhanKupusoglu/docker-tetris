@@ -17,9 +17,10 @@ then
     export TETRIS_SERVER_SETTINGS="${DIR_RUN}/settings.cfg"
 fi
 
+export FLASK_HTTP_PORT=$X_FLASK_PORT
 export FLASK_APP=tetris-server/app.py
 
-nohup flask run --host=0.0.0.0 --port="${FLASK_HTTP_PORT}" > /dev/null 2>&1 &
+nohup flask run --host=0.0.0.0 --port="${FLASK_HTTP_PORT}" --with-threads > /dev/null 2>&1 &
 
 echo "-- Flask HTTP port: ${FLASK_HTTP_PORT}"
 echo "-- started"

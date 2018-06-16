@@ -12,6 +12,7 @@ WORKDIR /$DIR_PROJECT
 COPY tetris-server.tar.gz /$DIR_PROJECT
 
 RUN tar -xzf tetris-server.tar.gz && \
+    rm -f tetris-server.tar.gz && \
     virtualenv -p /usr/bin/python3 .venv && \
     /bin/bash -c "source .venv/bin/activate ; pip install -r requirements.txt ; deactivate" && \
     cd tetris-server/static/ && \

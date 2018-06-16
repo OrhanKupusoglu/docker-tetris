@@ -22,10 +22,11 @@ export FLASK_APP=tetris-server/app.py
 
 nohup flask run --host=0.0.0.0 --port="${FLASK_HTTP_PORT}" --with-threads > /dev/null 2>&1 &
 
-echo "-- Flask HTTP port: ${FLASK_HTTP_PORT}"
-echo "-- started"
+echo "++ Flask App: ${FLASK_APP}"
+echo "++ Flask HTTP port: ${FLASK_HTTP_PORT}"
+echo "++ started"
 
 sleep 1
 
-# ssh daemon
+# SSH daemon
 /usr/sbin/sshd -D

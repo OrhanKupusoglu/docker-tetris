@@ -27,9 +27,9 @@ $ man docker-image-rm
 
 $ docker image ls
 REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
-tetris-server/app    0.0.4               cb668c9231a8        5 minutes ago       595MB
-tetris-server/base   0.0.4               ed7a1621b1fb        6 minutes ago       573MB
-ubuntu               16.04               5e8b97a2a082        9 days ago          114MB
+tetris-server/app    0.0.5               5e8a2fc06b2c        14 minutes ago      595MB
+tetris-server/base   0.0.5               d2e0fbcc64b8        14 minutes ago      573MB
+ubuntu               16.04               5e8b97a2a082        10 days ago         114MB
 ```
 
 Docker containers can be listed and removed with **docker container** family commands.
@@ -41,8 +41,9 @@ $ man docker-container-ls
 $ man docker-container-rm
 
 $ docker container ls
+$ docker container ls
 CONTAINER ID        IMAGE                     COMMAND                  CREATED             STATUS              PORTS                                          NAMES
-c4b36c12fa89        tetris-server/app:0.0.4   "sh -c /${DIR_PROJEC…"   8 minutes ago       Up 8 seconds        0.0.0.0:8888->8888/tcp, 0.0.0.0:2222->22/tcp   app
+ec3939e3c083        tetris-server/app:0.0.5   "sh -c /${DIR_PROJEC…"   11 minutes ago      Up 11 minutes       0.0.0.0:8888->8888/tcp, 0.0.0.0:2222->22/tcp   app
 ```
 ## Docker Compose
 
@@ -64,8 +65,9 @@ WARNING: Image for service app was built because it did not already exist. To re
 Creating app ... done
 Creating app ... 
 Attaching to app
-app     | -- Flask HTTP port: 8888
-app     | -- started
+app     | ++ Flask App: tetris-server/app.py
+app     | ++ Flask HTTP port: 8888
+app     | ++ started
 ```
 
 After running the Docker Compose scripts, three images are added. These images can be checked in a new terminal.
@@ -79,14 +81,13 @@ $ docker-compose ps
     Name                   Command               State                       Ports                    
 ------------------------------------------------------------------------------------------------------
 app             sh -c /${DIR_PROJECT}/start.sh   Up       0.0.0.0:2222->22/tcp, 0.0.0.0:8888->8888/tcp
-docker_base_1   /bin/bash                        Exit 0        
+docker_base_1   /bin/bash                        Exit 0                                               
 ```
 
 The running containers can be stopped with CTRL+C.
 
 ```
-app     | -- Flask HTTP port: 8888
-app     | -- started
+app     | ++ started
 ^CGracefully stopping... (press Ctrl+C again to force)
 Stopping app ... 
 Killing app ... done
@@ -101,21 +102,21 @@ Docker Compose has a **detached mode**:
 This is useful to run containers as services.
 
 ```
+$ docker-compose down
+Removing app           ... done
+Removing docker_base_1 ... done
+Removing network docker_default
+
 $ docker-compose up -d
 Creating docker_base_1 ... done
 Creating app ... done
 Creating app ... 
 
-$ docker-compose ps
+orhanku@OK-N752VX ~/ME/DEV/docker-tetris/docker $ docker-compose ps
     Name                   Command               State                       Ports                    
 ------------------------------------------------------------------------------------------------------
 app             sh -c /${DIR_PROJECT}/start.sh   Up       0.0.0.0:2222->22/tcp, 0.0.0.0:8888->8888/tcp
-docker_base_1   /bin/bash                        Exit 0    
-
-$ docker-compose down
-Removing app           ... done
-Removing docker_base_1 ... done
-Removing network docker_default
+docker_base_1   /bin/bash                        Exit 0                                               
 ```
 
 ### Docker Compose Errors
@@ -128,19 +129,19 @@ $ docker-compose up
 ERROR: Error: image <IMAGE_NAME/TAG> not found
 
 $ docker ps -a
-CONTAINER ID        IMAGE                      COMMAND                  CREATED             STATUS                       PORTS               NAMES
-fd026181e316        tetris-server/app:0.0.4    "sh -c /${DIR_PROJEC…"   6 minutes ago       Exited (137) 2 minutes ago                       app
-a26e225ff9f5        tetris-server/base:0.0.4   "/bin/bash"              6 minutes ago       Exited (0) 6 minutes ago                         docker_base_1
+CONTAINER ID        IMAGE                      COMMAND                  CREATED             STATUS                     PORTS                                          NAMES
+ec3939e3c083        tetris-server/app:0.0.5    "sh -c /${DIR_PROJEC…"   6 minutes ago       Up 6 minutes               0.0.0.0:8888->8888/tcp, 0.0.0.0:2222->22/tcp   app
+dd419b6ad532        tetris-server/base:0.0.5   "/bin/bash"              6 minutes ago       Exited (0) 6 minutes ago                                                  docker_base_1
 
-$ docker container rm -f fd026181e316 a26e225ff9f5
+$ docker container rm -f ec3939e3c083 dd419b6ad532
 
 $ docker image ls
 REPOSITORY           TAG                 IMAGE ID            CREATED             SIZE
-tetris-server/app    0.0.4               cb668c9231a8        5 minutes ago       595MB
-tetris-server/base   0.0.4               ed7a1621b1fb        6 minutes ago       573MB
-ubuntu               16.04               5e8b97a2a082        9 days ago          114MB
+tetris-server/app    0.0.5               5e8a2fc06b2c        10 minutes ago      595MB
+tetris-server/base   0.0.5               d2e0fbcc64b8        10 minutes ago      573MB
+ubuntu               16.04               5e8b97a2a082        10 days ago         114MB
 
-$ docker image rm cb668c9231a8 ed7a1621b1fb6 5e8b97a2a082
+$ docker image rm 5e8a2fc06b2c d2e0fbcc64b8 5e8b97a2a082
 ```
 
 ## SSH
@@ -150,7 +151,7 @@ The container can be accessed via SSH on port **2222** by the **root** user with
 ```
 $ ssh root@localhost -p 2222
 The authenticity of host '[localhost]:2222 ([127.0.0.1]:2222)' can't be established.
-ECDSA key fingerprint is SHA256:xG0j6tW7p7A3VwlmEMjMnoC0q12Li0XybIX9/cUre2g.
+ECDSA key fingerprint is SHA256:/3EugfEczFa/DHFaUKnLXiBIG/AgYvpzJg1spofJb9c.
 Are you sure you want to continue connecting (yes/no)? yes
 Warning: Permanently added '[localhost]:2222' (ECDSA) to the list of known hosts.
 root@localhost's password: 
@@ -174,7 +175,6 @@ settings.cfg
 start.sh
 stop.sh
 tetris-server
-tetris-server.tar.gz
 ```
 
 Each new built image may trigger a warning. This warning can be eliminated with the suggested **ssh-keygen -f** command.
